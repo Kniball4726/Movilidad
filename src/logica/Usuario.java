@@ -24,8 +24,8 @@ public class Usuario extends Trabajador{
         this.rol = rol;
     }
 
-    public Usuario(int idUsuario, String usuario, String contrasena, String rol, int idPersona, String nombre, String id, String cargo, String dependencia, double sueldo) {
-        super(idPersona, nombre, id, cargo, dependencia, sueldo);
+    public Usuario(int idUsuario, String usuario, String contrasena, String rol, int idPersona, String nombre, String id, String cargo, String dependencia) {
+        super(idPersona, nombre, id, cargo, dependencia);
         this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.contrasena = contrasena;
@@ -104,14 +104,7 @@ public class Usuario extends Trabajador{
         this.dependencia = dependencia;
     }
 
-    public double getSueldo() {
-        return sueldo;
-    }
-
-    public void setSueldo(double sueldo) {
-        this.sueldo = sueldo;
-    }
-
+    
     @Override
     public String toString() {
         return "Usuario{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", contrasena=" + contrasena + ", rol=" + rol + '}';

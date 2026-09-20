@@ -22,8 +22,8 @@ public class Conductor extends Trabajador {
         this.estado = estado;
     }
 
-    public Conductor(String licencia, String grado, String estado, int idPersona, String nombre, String id, String cargo, String dependencia, double sueldo) {
-        super(idPersona, nombre, id, cargo, dependencia, sueldo);
+    public Conductor(String licencia, String grado, String estado, int idPersona, String nombre, String id, String cargo, String dependencia) {
+        super(idPersona, nombre, id, cargo, dependencia);
         this.licencia = licencia;
         this.grado = grado;
         this.estado = estado;
@@ -91,14 +91,6 @@ public class Conductor extends Trabajador {
 
     public void setDependencia(String dependencia) {
         this.dependencia = dependencia;
-    }
-
-    public double getSueldo() {
-        return sueldo;
-    }
-
-    public void setSueldo(double sueldo) {
-        this.sueldo = sueldo;
     }
 
     @Override
