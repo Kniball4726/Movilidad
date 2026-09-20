@@ -14,18 +14,16 @@ public abstract class Trabajador {
     protected String id;
     protected String cargo;
     protected String dependencia;
-    protected double sueldo;
 
     public Trabajador() {
     }
 
-    public Trabajador(int idPersona, String nombre, String id, String cargo, String dependencia, double sueldo) {
+    public Trabajador(int idPersona, String nombre, String id, String cargo, String dependencia) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.id = id;
         this.cargo = cargo;
         this.dependencia = dependencia;
-        this.sueldo = sueldo;
     }
 
     public int getIdPersona() {
@@ -68,17 +66,9 @@ public abstract class Trabajador {
         this.dependencia = dependencia;
     }
 
-    public double getSueldo() {
-        return sueldo;
-    }
-
-    public void setSueldo(double sueldo) {
-        this.sueldo = sueldo;
-    }
-
     @Override
     public String toString() {
-        return "Trabajador{" + "idPersona=" + idPersona + ", nombre=" + nombre + ", id=" + id + ", cargo=" + cargo + ", dependencia=" + dependencia + ", sueldo=" + sueldo + '}';
+        return "Trabajador{" + "idPersona=" + idPersona + ", nombre=" + nombre + ", id=" + id + ", cargo=" + cargo + ", dependencia=" + dependencia +'}';
     }
 
     
