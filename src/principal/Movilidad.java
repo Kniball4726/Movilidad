@@ -3,11 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package principal;
-
-import static java.lang.Thread.sleep;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import logica.Usuario;
 
 /**
  *
@@ -17,34 +17,34 @@ public class Movilidad {
 
     /**
      * @param args the command line arguments
-     * @throws java.lang.InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
        ingreso();
     }
     
     public static void ingreso(){
+        List<Usuario> usuarios = new ArrayList<>();
+
+        Usuario usuarioAdmin = new Usuario(1, "Admin", "grupo1", "Admin");
+        Usuario user = new Usuario(2,"User","grupo2","User");
+        usuarios.add(usuarioAdmin);
+        usuarios.add(user);
+        
         int contador=0;
        
-        Map<String, String> ingreso = new HashMap<>();
-     
-        try{
-    
-            while (contador < 3){
+        while (contador < 3){
            
-            ingreso.put("Admin", "grupo1");
-        
             System.out.println("\nIngreso al sistema");
             System.out.println("\nIndique usuario: ");
             String usuario = leerString();
             System.out.println("Indique contraseña: ");
             String clave = leerString();
         
-            boolean existen = ingreso.containsKey(usuario) && 
-                          ingreso.get(usuario).equals(clave);
+                boolean existen = usuarios.stream().anyMatch(usuarioRegistrado ->
+                    usuario.equals(usuarioRegistrado.getUsuario()) &&
+                    clave.equals(usuarioRegistrado.getContrasena()));
         
             if (existen){
-                sleep(1000);
                 menuPrincipal();
                 break;
             }else{
@@ -57,12 +57,10 @@ public class Movilidad {
                 System.out.println("\nIntrodujo mal clave y/o contraseña 3 veces");
             }
         
-        }catch(InterruptedException e){
-            System.out.println("Ocurrio un error inesperado");
-        }
+        
     }
     
-    public static void menuPrincipal() throws InterruptedException{
+ public static void menuPrincipal(){
         System.out.println("\n\n\nBienvenidos al sistema de reservas\n ");
         System.out.println("1.- Gestionar Reservas");
         System.out.println("2.- Gestionar trabajadores");
@@ -92,7 +90,6 @@ public class Movilidad {
             }
             case 0 -> {
                 System.out.println("Saliendo . . .");
-                sleep(1000);
                 break;
             }
             default -> {
@@ -104,7 +101,7 @@ public class Movilidad {
                 
     }
     
-    public static void menuReservas() throws InterruptedException{
+    public static void menuReservas(){
         System.out.println("\n\n\nBienvenido al menú de reservas");
         System.out.println("1.- Crear reserva");
         System.out.println("2.- Modificar reserva");
@@ -137,13 +134,12 @@ public class Movilidad {
             }
             default -> {
                 System.out.println("Introduzca un número dentro del menú");
-                sleep(1000);
                 menuReservas();
             }
         }
     }
     
-public static void menuTrabajador() throws InterruptedException{
+public static void menuTrabajador(){
         System.out.println("\n\n\nBienvenido al menú de trabajadores");
         System.out.println("1.- Agregar trabajador");
         System.out.println("2.- Modificar trabajador");
@@ -172,13 +168,12 @@ public static void menuTrabajador() throws InterruptedException{
             }
             default -> {
                 System.out.println("Introduzca un número dentro del menú");
-                sleep(1000);
                 menuTrabajador();
             }
         }
     }
 
-public static void menuConductor() throws InterruptedException{
+public static void menuConductor(){
     System.out.println("\n\n\nBienvenido al menú de Conductores");
         System.out.println("1.- Agregar conductor");
         System.out.println("2.- Modificar conductor");
@@ -207,13 +202,12 @@ public static void menuConductor() throws InterruptedException{
             }
             default -> {
                 System.out.println("Introduzca un número dentro del menú");
-                sleep(1000);
                 menuConductor();
             }
         }
     }
 
-public static void menuVehiculo() throws InterruptedException{
+public static void menuVehiculo(){
     System.out.println("\n\n\nBienvenido al menú de Vehiculo");
         System.out.println("1.- Agregar vehiculo");
         System.out.println("2.- Modificar vehiculo");
@@ -242,14 +236,13 @@ public static void menuVehiculo() throws InterruptedException{
             }
             default -> {
                 System.out.println("Introduzca un número dentro del menú");
-                sleep(1000);
                 menuVehiculo();
             }
         }
     }
 
 
-public static void menuUsuario() throws InterruptedException{
+public static void menuUsuario(){
     System.out.println("\n\n\nBienvenido al menú de usuarios");
         System.out.println("1.- Agregar usuario");
         System.out.println("2.- Modificar usuario");
@@ -278,7 +271,6 @@ public static void menuUsuario() throws InterruptedException{
             }
             default -> {
                 System.out.println("Introduzca un número dentro del menú");
-                sleep(1000);
                 menuUsuario();
             }
         }
