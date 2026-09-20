@@ -223,7 +223,7 @@ public static void menuVehiculo() throws InterruptedException{
         System.out.println("0.- Volver");
         
         int seleccion = leerInt();
-        
+
         switch (seleccion){
             case 1 ->{
                 System.out.println("\nAgregar vehiculo");
