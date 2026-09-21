@@ -7,26 +7,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import logica.Conductor;
+import logica.NeMovilidad;
+import logica.Reserva;
 import logica.Usuario;
+import logica.Vehiculo;
 
 /**
  *
  * @author glrd4
  */
 public class Movilidad {
-
-    /**
-     * @param args the command line arguments
-     */
+    
+    public static List<Usuario> usuarios = new ArrayList<>();
+    public static List<Vehiculo> vehiculo = new ArrayList<>();
+    public static List<Reserva> reserva = new ArrayList<>();
+    public static List<Conductor> conductor = new ArrayList<>();
+    public static List<NeMovilidad> movilidad = new ArrayList<>();
+    
     public static void main(String[] args) throws InterruptedException {
        ingreso();
     }
     
-    public static void ingreso(){
-        List<Usuario> usuarios = new ArrayList<>();
+    public static String ingreso(){
 
         Usuario usuarioAdmin = new Usuario(1, "Admin", "grupo1", "Admin");
         Usuario user = new Usuario(2,"User","grupo2","User");
+
         usuarios.add(usuarioAdmin);
         usuarios.add(user);
         
@@ -40,13 +47,10 @@ public class Movilidad {
             System.out.println("Indique contraseña: ");
             String clave = leerString();
         
-                boolean existen = usuarios.stream().anyMatch(usuarioRegistrado ->
-                    usuario.equals(usuarioRegistrado.getUsuario()) &&
-                    clave.equals(usuarioRegistrado.getContrasena()));
-        
-            if (existen){
+            if (usuario.equals(usuarioAdmin.getUsuario()) || usuario.equals(user.getUsuario()) && clave.equals(usuarioAdmin.getContrasena()) || clave.equals(user.getContrasena())){
                 menuPrincipal();
                 break;
+            
             }else{
                 System.out.println("\nUsuario o contraseña incorrectos");
                 contador +=1;
@@ -57,16 +61,15 @@ public class Movilidad {
                 System.out.println("\nIntrodujo mal clave y/o contraseña 3 veces");
             }
         
-        
+        return usuarioAdmin.getRol();
     }
     
  public static void menuPrincipal(){
         System.out.println("\n\n\nBienvenidos al sistema de reservas\n ");
         System.out.println("1.- Gestionar Reservas");
-        System.out.println("2.- Gestionar trabajadores");
-        System.out.println("3.- Gestionar conductores");
-        System.out.println("4.- Gestionar vehiculos");
-        System.out.println("5.- Gestionar usuarios");
+        System.out.println("2.- Gestionar conductores");
+        System.out.println("3.- Gestionar vehiculos");
+        System.out.println("4.- Gestionar usuarios");
         System.out.println("0.- Salir");
         
         int seleccion = leerInt();
@@ -76,16 +79,12 @@ public class Movilidad {
                 menuReservas();
             }
             case 2 -> {
-                menuTrabajador();
-            }
-            case 3 -> {
                 menuConductor();
             }
-            case 4 -> {
+            case 3 -> {
                 menuVehiculo();
-             
             }
-            case 5 ->{
+            case 4 -> {
                 menuUsuario();
             }
             case 0 -> {
@@ -104,10 +103,11 @@ public class Movilidad {
     public static void menuReservas(){
         System.out.println("\n\n\nBienvenido al menú de reservas");
         System.out.println("1.- Crear reserva");
-        System.out.println("2.- Modificar reserva");
-        System.out.println("3.- Buscar reserva");
-        System.out.println("4.- Suspender reserva");
-        System.out.println("5.- Eliminar reserva");
+        System.out.println("2.- Ver reservas");
+        System.out.println("3.- Modificar reserva");
+        System.out.println("4.- Buscar reserva");
+        System.out.println("5.- Suspender reserva");
+        System.out.println("6.- Eliminar reserva");
         System.out.println("0.- Volver");
         
         int seleccion = leerInt();
@@ -118,15 +118,21 @@ public class Movilidad {
                 
             }
             case 2 ->{
-                System.out.println("\nModificar reserva");
+                System.out.println("\nVer reservas");
+                for(Reserva reserva: reserva){
+                    System.out.println(reserva);
+                }
             }
             case 3 ->{
-                System.out.println("Buscar reserva");
+                System.out.println("Modificar reserva");
             }
             case 4 ->{
-                System.out.println("Suspender reserva");
+                System.out.println("Buscar reserva");
             }
             case 5 ->{
+                System.out.println("Suspender reserva");
+            }
+            case 6 ->{
                 System.out.println("Eliminar reserva");
             }
             case 0 -> {
@@ -139,45 +145,14 @@ public class Movilidad {
         }
     }
     
-public static void menuTrabajador(){
-        System.out.println("\n\n\nBienvenido al menú de trabajadores");
-        System.out.println("1.- Agregar trabajador");
-        System.out.println("2.- Modificar trabajador");
-        System.out.println("3.- Buscar trabajador");
-        System.out.println("5.- Eliminar trabajador");
-        System.out.println("0.- Volver");
-        
-        int seleccion = leerInt();
-        
-        switch (seleccion){
-            case 1 ->{
-                System.out.println("\nAgregar trabajador");
-                
-            }
-            case 2 ->{
-                System.out.println("\nModificar trabajador");
-            }
-            case 3 ->{
-                System.out.println("\nBuscar trabajador");
-            }
-            case 4 ->{
-                System.out.println("\nEliminar trabajador");
-            }
-            case 0 -> {
-                menuPrincipal();
-            }
-            default -> {
-                System.out.println("Introduzca un número dentro del menú");
-                menuTrabajador();
-            }
-        }
-    }
+
 
 public static void menuConductor(){
     System.out.println("\n\n\nBienvenido al menú de Conductores");
         System.out.println("1.- Agregar conductor");
-        System.out.println("2.- Modificar conductor");
-        System.out.println("3.- Buscar conductor");
+        System.out.println("2.- Ver conductor");
+        System.out.println("3.- Modificar conductor");
+        System.out.println("4.- Buscar conductor");
         System.out.println("5.- Eliminar conductgor");
         System.out.println("0.- Volver");
         
@@ -189,12 +164,18 @@ public static void menuConductor(){
                 
             }
             case 2 ->{
-                System.out.println("\nModificar conductor");
+                System.out.println("\nVer conductor");
+                for(Conductor conductor: conductor){
+                    System.out.println(conductor);
+                }
             }
             case 3 ->{
-                System.out.println("\nBuscar conductor");
+                System.out.println("\nModificar conductor");
             }
             case 4 ->{
+                System.out.println("\nBuscar conductor");
+            }
+            case 5 ->{
                 System.out.println("\nEliminar conductor");
             }
             case 0 -> {
@@ -210,8 +191,9 @@ public static void menuConductor(){
 public static void menuVehiculo(){
     System.out.println("\n\n\nBienvenido al menú de Vehiculo");
         System.out.println("1.- Agregar vehiculo");
-        System.out.println("2.- Modificar vehiculo");
-        System.out.println("3.- Buscar vehiculo");
+        System.out.println("2.- Ver vehiculo");
+        System.out.println("3.- Modificar vehiculo");
+        System.out.println("4.- Buscar vehiculo");
         System.out.println("5.- Eliminar vehiculo");
         System.out.println("0.- Volver");
         
@@ -223,13 +205,19 @@ public static void menuVehiculo(){
                 
             }
             case 2 ->{
-                System.out.println("\nModificar vehiculo");
+                System.out.println("\nVer vehiculo");
+                for(Vehiculo vehiculo: vehiculo){
+                    System.out.println(vehiculo);
+                }
             }
             case 3 ->{
-                System.out.println("\nBuscar vehiculo");
+                System.out.println("\nModificar vehiculo");
             }
             case 4 ->{
-                System.out.println("\nEliminar vehiculo");
+                System.out.println("\nBuscar vehiculo");
+            }
+            case 5 ->{
+                System.out.println("Eliminar Vehiculo");
             }
             case 0 -> {
                 menuPrincipal();
@@ -245,8 +233,9 @@ public static void menuVehiculo(){
 public static void menuUsuario(){
     System.out.println("\n\n\nBienvenido al menú de usuarios");
         System.out.println("1.- Agregar usuario");
-        System.out.println("2.- Modificar usuario");
-        System.out.println("3.- Buscar usuario");
+        System.out.println("2.- Ver usuarios");
+        System.out.println("3.- Buscar usuarios");
+        System.out.println("4.- Modificar usuario");
         System.out.println("5.- Eliminar usuario");
         System.out.println("0.- Volver");
         
@@ -255,15 +244,20 @@ public static void menuUsuario(){
         switch (seleccion){
             case 1 ->{
                 System.out.println("\nAgregar usuario");
-                
             }
             case 2 ->{
-                System.out.println("\nModificar usuario");
+                System.out.println("\nVer usuarios");
+                for(Usuario usuarios: usuarios){
+                    System.out.println(usuarios);
+                }
             }
             case 3 ->{
                 System.out.println("\nBuscar usuario");
             }
             case 4 ->{
+                System.out.println("\nModificar usuario");
+            }
+            case 5 ->{
                 System.out.println("\nEliminar usuario");
             }
             case 0 -> {
