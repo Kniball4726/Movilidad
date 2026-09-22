@@ -64,42 +64,52 @@ public class Usuario extends Trabajador{
         this.rol = rol;
     }
 
+    @Override
     public int getIdPersona() {
         return idPersona;
     }
 
+    @Override
     public void setIdPersona(int idPersona) {
         this.idPersona = idPersona;
     }
 
+    @Override
     public String getNombre() {
         return nombre;
     }
 
+    @Override
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public void setId(String id) {
         this.id = id;
     }
 
+    @Override
     public String getCargo() {
         return cargo;
     }
 
+    @Override
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
 
+    @Override
     public String getDependencia() {
         return dependencia;
     }
 
+    @Override
     public void setDependencia(String dependencia) {
         this.dependencia = dependencia;
     }
@@ -107,7 +117,9 @@ public class Usuario extends Trabajador{
     
     @Override
     public String toString() {
-        return "Usuario{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", contrasena=" + contrasena + ", rol=" + rol + '}';
+        return """
+               Usuario
+               idUsuario: """ + idUsuario + "\nusuario: " + usuario + "\ncontrasena: " + contrasena + "\nrol: " + rol;
     }
 
     

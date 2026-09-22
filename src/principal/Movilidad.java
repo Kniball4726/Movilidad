@@ -6,7 +6,6 @@ package principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import logica.Conductor;
 import logica.NeMovilidad;
 import logica.Reserva;
@@ -119,8 +118,8 @@ public class Movilidad {
             }
             case 2 ->{
                 System.out.println("\nVer reservas");
-                for(Reserva reserva: reserva){
-                    System.out.println(reserva);
+                for(Reserva reservan: reserva){
+                    System.out.println(reservan);
                 }
             }
             case 3 ->{
@@ -165,8 +164,8 @@ public static void menuConductor(){
             }
             case 2 ->{
                 System.out.println("\nVer conductor");
-                for(Conductor conductor: conductor){
-                    System.out.println(conductor);
+                for(Conductor conductores: conductor){
+                    System.out.println(conductores);
                 }
             }
             case 3 ->{
@@ -206,8 +205,8 @@ public static void menuVehiculo(){
             }
             case 2 ->{
                 System.out.println("\nVer vehiculo");
-                for(Vehiculo vehiculo: vehiculo){
-                    System.out.println(vehiculo);
+                for(Vehiculo vehiculos: vehiculo){
+                    System.out.println(vehiculos);
                 }
             }
             case 3 ->{
@@ -244,21 +243,75 @@ public static void menuUsuario(){
         switch (seleccion){
             case 1 ->{
                 System.out.println("\nAgregar usuario");
+                System.out.println("Ingrese idUsuario: ");
+                int idUsuario = leerInt();
+                System.out.println("Ingrese usuario: ");
+                String usuario = leerString();
+                System.out.println("Ingrese contraseña: ");
+                String contrasena = leerString();
+                System.out.println("Ingrese rol: ");
+                String rol = leerString();
+
+                Usuario nuevoUsuario = new Usuario(idUsuario, usuario, contrasena, rol);
+                usuarios.add(nuevoUsuario);
             }
             case 2 ->{
                 System.out.println("\nVer usuarios");
-                for(Usuario usuarios: usuarios){
-                    System.out.println(usuarios);
+                for(Usuario usuario: usuarios){
+                    System.out.println(usuario);
                 }
             }
             case 3 ->{
                 System.out.println("\nBuscar usuario");
+                System.out.println("Ingrese usuario: ");
+                String usuario = leerString();
+                for(Usuario u: usuarios){
+                    if(u.getUsuario().equals(usuario)){
+                        System.out.println(u);
+                        break;
+                    }else{
+                        System.out.println("Usuario no encontrado");
+                    }
+                }
             }
             case 4 ->{
                 System.out.println("\nModificar usuario");
+                System.out.println("Ingrese usuario: ");
+                String usuario = leerString();
+                for(Usuario u: usuarios){
+                    if(u.getUsuario().equals(usuario)){
+                        System.out.println("Usuario encontrado");
+                        System.out.println("\nIngrese nuevo usuario: ");
+                        String nuevoUsuario = leerString();
+                        u.setUsuario(nuevoUsuario);
+                        System.out.println("Usuario modificado");
+                        System.out.println("\nIngrese nueva contraseña: ");
+                        String nuevaContrasena = leerString();
+                        u.setContrasena(nuevaContrasena);
+                        System.out.println("Contraseña modificada");
+                        System.out.println("\nIngrese nuevo rol: ");
+                        String nuevoRol = leerString();
+                        u.setRol(nuevoRol);
+                        System.out.println("Rol modificada");
+                        break;
+                    }else{
+                        System.out.println("Usuario no encontrado");
+                    }
+                }
             }
             case 5 ->{
                 System.out.println("\nEliminar usuario");
+                System.out.println("Ingrese usuario: ");
+                String usuario = leerString();
+                for(Usuario u: usuarios){
+                    if(u.getUsuario().equals(usuario)){
+                        usuarios.remove(u);
+                        System.out.println("Usuario eliminado");
+                        break;
+                    }else{
+                        System.out.println("Usuario no encontrado");
+                    }
+                }
             }
             case 0 -> {
                 menuPrincipal();
