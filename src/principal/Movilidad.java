@@ -65,25 +65,29 @@ public class Movilidad {
     
  public static void menuPrincipal(){
         System.out.println("\n\n\nBienvenidos al sistema de reservas\n ");
-        System.out.println("1.- Gestionar Reservas");
-        System.out.println("2.- Gestionar conductores");
-        System.out.println("3.- Gestionar vehiculos");
-        System.out.println("4.- Gestionar usuarios");
+        System.out.println("1.- Registrar necesidades de movilidad");
+        System.out.println("2.- Gestionar Reservas");
+        System.out.println("3.- Gestionar conductores");
+        System.out.println("4.- Gestionar vehiculos");
+        System.out.println("5.- Gestionar usuarios");
         System.out.println("0.- Salir");
         
         int seleccion = leerInt();
         
         switch (seleccion){
             case 1 -> {
-                menuReservas();
+                menuMovilidad();
             }
             case 2 -> {
-                menuConductor();
+                menuReservas();
             }
             case 3 -> {
-                menuVehiculo();
+                menuConductor();
             }
             case 4 -> {
+                menuVehiculo();
+            }
+            case 5 -> {
                 menuUsuario();
             }
             case 0 -> {
@@ -97,6 +101,51 @@ public class Movilidad {
     
         }
                 
+    }
+
+    public static void menuMovilidad(){
+        System.out.println("\n\n\nBienvenido al menú de necesidades de movilidad");
+        System.out.println("1.- Crear necesidad de movilidad");
+        System.out.println("2.- Ver necesidades de movilidad");
+        System.out.println("3.- Modificar necesidad de movilidad");
+        System.out.println("4.- Buscar necesidad de movilidad");
+        System.out.println("5.- Suspender necesidad de movilidad");
+        System.out.println("6.- Eliminar necesidad de movilidad");
+        System.out.println("0.- Volver");
+        
+        int seleccion = leerInt();
+        
+        switch (seleccion){
+            case 1 ->{
+                System.out.println("\nCrear necesidad de movilidad");
+                
+            }
+            case 2 ->{
+                System.out.println("\nVer necesidades de movilidad");
+                for(NeMovilidad movi: movilidad){
+                    System.out.println(movi);
+                }
+            }
+            case 3 ->{
+                System.out.println("Modificar necesidad de movilidad");
+            }
+            case 4 ->{
+                System.out.println("Buscar necesidad de movilidad");
+            }
+            case 5 ->{
+                System.out.println("Suspender necesidad de movilidad");
+            }
+            case 6 ->{
+                System.out.println("Eliminar necesidad de movilidad");
+            }
+            case 0 -> {
+                menuPrincipal();
+            }
+            default -> {
+                System.out.println("Introduzca un número dentro del menú");
+                menuMovilidad();
+            }
+        }
     }
     
     public static void menuReservas(){
