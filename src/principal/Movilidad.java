@@ -166,6 +166,7 @@ public class Movilidad {
         System.out.println("6.- Eliminar reserva");
         System.out.println("0.- Volver");
         
+        
         int seleccion = leerInt();
         
         switch (seleccion){
