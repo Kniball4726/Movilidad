@@ -66,7 +66,9 @@ public class Movilidad {
     }
     
  public static void menuPrincipal(){
-        System.out.println("\n\n\nBienvenidos al sistema de reservas\n ");
+        System.out.println("\n===========================================");
+        System.out.println("Bienvenidos al sistema de reservas ");
+        System.out.println("===========================================");
         System.out.println("1.- Registrar necesidades de movilidad");
         System.out.println("2.- Gestionar Reservas");
         System.out.println("3.- Gestionar conductores");
@@ -106,7 +108,9 @@ public class Movilidad {
     }
 
     public static void menuMovilidad(){
-        System.out.println("\n\n\nBienvenido al menú de necesidades de movilidad");
+        System.out.println("\n===========================================");
+        System.out.println("Bienvenido al menú de necesidades de movilidad");
+        System.out.println("===========================================");
         System.out.println("1.- Crear necesidad de movilidad");
         System.out.println("2.- Ver necesidades de movilidad");
         System.out.println("3.- Modificar necesidad de movilidad");
@@ -151,7 +155,9 @@ public class Movilidad {
     }
     
     public static void menuReservas(){
-        System.out.println("\n\n\nBienvenido al menú de reservas");
+        System.out.println("\n===========================================");
+        System.out.println("Bienvenido al menú de reservas");
+        System.out.println("===========================================");
         System.out.println("1.- Crear reserva");
         System.out.println("2.- Ver reservas");
         System.out.println("3.- Modificar reserva");
@@ -198,7 +204,9 @@ public class Movilidad {
 
 
 public static void menuConductor(){
-    System.out.println("\n\n\nBienvenido al menú de Conductores");
+    System.out.println("\n===========================================");
+    System.out.println("Bienvenido al menú de Conductores");
+    System.out.println("===========================================");
         System.out.println("1.- Agregar conductor");
         System.out.println("2.- Ver conductor");
         System.out.println("3.- Modificar conductor");
@@ -239,7 +247,9 @@ public static void menuConductor(){
     }
 
 public static void menuVehiculo(){
-    System.out.println("\n\n\nBienvenido al menú de Vehiculo");
+    System.out.println("\n===========================================");
+    System.out.println("Bienvenido al menú de Vehiculo");
+    System.out.println("===========================================");
         System.out.println("1.- Agregar vehiculo");
         System.out.println("2.- Ver vehiculo");
         System.out.println("3.- Modificar vehiculo");
@@ -281,7 +291,9 @@ public static void menuVehiculo(){
 
 
 public static void menuUsuario(){
-    System.out.println("\n\n\nBienvenido al menú de usuarios");
+    System.out.println("\n===========================================");
+    System.out.println("Bienvenido al menú de usuarios");
+    System.out.println("===========================================");
         System.out.println("1.- Agregar usuario");
         System.out.println("2.- Ver usuarios");
         System.out.println("3.- Buscar usuarios");
