@@ -39,8 +39,10 @@ public class Movilidad {
         int contador=0;
        
         while (contador < 3){
-           
-            System.out.println("\nIngreso al sistema");
+            System.out.println("\n===========================================");
+            System.out.println("Sistema SiReAu: Gestión VDG (Modo terminal)");
+            System.out.println("===========================================");
+            System.out.println("Ingreso al sistema");
             System.out.println("\nIndique usuario: ");
             String usuario = leerString();
             System.out.println("Indique contraseña: ");
