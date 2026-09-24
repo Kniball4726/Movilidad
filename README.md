@@ -79,6 +79,18 @@ java -cp build/classes principal.Movilidad
 
 > En sistemas Windows, la ejecución puede hacerse desde PowerShell o desde el IDE configurado para Java.
 
+## Generar documentación Javadoc
+
+La documentación se escribe en los comentarios `/** ... */` de las clases y métodos públicos. Para generarla en Windows PowerShell:
+
+```powershell
+javadoc -d build\javadoc -sourcepath src -subpackages enums:logica:principal
+```
+
+Después de ejecutar el comando, abre `build\javadoc\index.html` en el navegador. La documentación incluye las clases de `enums`, `logica` y `principal`, junto con sus constructores, parámetros, valores devueltos y descripciones.
+
+En NetBeans también puedes usar la opción **Run > Generate Javadoc**. El proyecto está configurado para usar `dist/javadoc` cuando la tarea de documentación de Ant se ejecuta desde el IDE.
+
 ## Credenciales de acceso por defecto
 
 El sistema incluye dos usuarios de ejemplo:

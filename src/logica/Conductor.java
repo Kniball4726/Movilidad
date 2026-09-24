@@ -4,24 +4,39 @@
  */
 package logica;
 
-/**
- *
- * @author glrd4
- */
+/** Representa a un conductor disponible para una reserva. */
 public class Conductor extends Trabajador {
     private String licencia;
     private String grado;
     private String estado;
 
+    /** Crea un conductor sin datos iniciales. */
     public Conductor() {
     }
 
+    /**
+     * Crea un conductor con sus datos operativos.
+     * @param licencia tipo o número de licencia
+     * @param grado grado del conductor
+     * @param estado estado actual del conductor
+     */
     public Conductor(String licencia, String grado, String estado) {
         this.licencia = licencia;
         this.grado = grado;
         this.estado = estado;
     }
 
+    /**
+     * Crea un conductor con datos operativos y laborales.
+     * @param licencia tipo o número de licencia
+     * @param grado grado del conductor
+     * @param estado estado actual del conductor
+     * @param idPersona identificador numérico de la persona
+     * @param nombre nombre completo
+     * @param id identificador institucional
+     * @param cargo cargo que desempeña
+     * @param dependencia dependencia a la que pertenece
+     */
     public Conductor(String licencia, String grado, String estado, int idPersona, String nombre, String id, String cargo, String dependencia) {
         super(idPersona, nombre, id, cargo, dependencia);
         this.licencia = licencia;
@@ -29,29 +44,36 @@ public class Conductor extends Trabajador {
         this.estado = estado;
     }
 
+    /** @return licencia del conductor */
     public String getLicencia() {
         return licencia;
     }
 
+    /** @param licencia nueva licencia */
     public void setLicencia(String licencia) {
         this.licencia = licencia;
     }
 
+    /** @return grado del conductor */
     public String getGrado() {
         return grado;
     }
 
+    /** @param grado nuevo grado */
     public void setGrado(String grado) {
         this.grado = grado;
     }
 
+    /** @return estado del conductor */
     public String getEstado() {
         return estado;
     }
 
+    /** @param estado nuevo estado */
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    /** @return representación textual del conductor */
     @Override 
     public int getIdPersona() {
         return idPersona;

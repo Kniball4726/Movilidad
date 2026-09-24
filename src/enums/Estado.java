@@ -4,10 +4,14 @@
  */
 package enums;
 
-/**
- *
- * @author glrd4
- */
+/** Estados posibles de una reserva o servicio de movilidad. */
 public enum Estado {
-    INICIADA, EN_PROCESO, FINALIZADA, SUSPENDIDA
+    /** Reserva recién creada. */
+    INICIADA,
+    /** Reserva que está siendo atendida. */
+    EN_PROCESO,
+    /** Reserva completada. */
+    FINALIZADA,
+    /** Reserva detenida temporalmente. */
+    SUSPENDIDA
 }

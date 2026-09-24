@@ -4,10 +4,16 @@
  */
 package enums;
 
-/**
- *
- * @author glrd4
- */
+/** Tipos de movilidad que puede solicitar el sistema. */
 public enum TipoMovilidad {
-    VDG,VDGX,VFAD,VEIP,VSF    
+    /** Viaje de gestión. */
+    VDG,
+    /** Viaje de gestión extendido. */
+    VDGX,
+    /** Viaje de formación, actividades y desarrollo. */
+    VFAD,
+    /** Viaje especial de interés institucional. */
+    VEIP,
+    /** Viaje de servicio funcional. */
+    VSF
 }

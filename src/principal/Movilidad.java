@@ -12,22 +12,34 @@ import logica.Reserva;
 import logica.Usuario;
 import logica.Vehiculo;
 
-/**
- *
- * @author glrd4
- */
+/** Punto de entrada y menús de la aplicación de gestión de movilidad. */
 public class Movilidad {
-    
+    /** Usuarios registrados en memoria. */
     public static List<Usuario> usuarios = new ArrayList<>();
+    /** Vehículos registrados en memoria. */
     public static List<Vehiculo> vehiculo = new ArrayList<>();
+    /** Reservas registradas en memoria. */
     public static List<Reserva> reserva = new ArrayList<>();
+    /** Conductores registrados en memoria. */
     public static List<Conductor> conductor = new ArrayList<>();
+    /** Necesidades de movilidad registradas en memoria. */
     public static List<NeMovilidad> movilidad = new ArrayList<>();
+
+    /** Crea la instancia principal de la aplicación. */
+    public Movilidad() {
+    }
     
+    /** Inicia la aplicación y muestra el flujo de autenticación. 
+     * @param args argumentos de la línea de comandos
+     * @throws InterruptedException si el flujo de ejecución es interrumpido
+     */
     public static void main(String[] args) throws InterruptedException {
        ingreso();
     }
     
+    /** Gestiona el inicio de sesión y dirige al menú principal.
+     * @return rol del usuario administrador configurado
+     */
     public static String ingreso(){
 
         Usuario usuarioAdmin = new Usuario(1, "Admin", "grupo1", "Admin");
@@ -65,6 +77,7 @@ public class Movilidad {
         return usuarioAdmin.getRol();
     }
     
+ /** Muestra el menú principal y procesa la opción seleccionada. */
  public static void menuPrincipal(){
         System.out.println("\n===========================================");
         System.out.println("Bienvenidos al sistema de reservas ");
@@ -107,6 +120,7 @@ public class Movilidad {
                 
     }
 
+    /** Muestra las operaciones de necesidades de movilidad. */
     public static void menuMovilidad(){
         System.out.println("\n===========================================");
         System.out.println("Bienvenido al menú de necesidades de movilidad");
@@ -154,6 +168,7 @@ public class Movilidad {
         }
     }
     
+    /** Muestra las operaciones de reservas. */
     public static void menuReservas(){
         System.out.println("\n===========================================");
         System.out.println("Bienvenido al menú de reservas");
@@ -204,6 +219,7 @@ public class Movilidad {
     
 
 
+/** Muestra las operaciones de conductores. */
 public static void menuConductor(){
     System.out.println("\n===========================================");
     System.out.println("Bienvenido al menú de Conductores");
@@ -247,6 +263,7 @@ public static void menuConductor(){
         }
     }
 
+/** Muestra las operaciones de vehículos. */
 public static void menuVehiculo(){
     System.out.println("\n===========================================");
     System.out.println("Bienvenido al menú de Vehiculo");
@@ -291,6 +308,7 @@ public static void menuVehiculo(){
     }
 
 
+/** Muestra las operaciones de usuarios. */
 public static void menuUsuario(){
     System.out.println("\n===========================================");
     System.out.println("Bienvenido al menú de usuarios");
@@ -388,12 +406,18 @@ public static void menuUsuario(){
     }
     
     
+    /** Lee una cadena desde la entrada estándar.
+     * @return texto introducido por el usuario
+     */
     public static String leerString(){
         Scanner teclado = new Scanner(System.in);
         String datos = teclado.nextLine();
         return datos;
     }
     
+    /** Lee un entero desde la entrada estándar.
+     * @return entero introducido por el usuario
+     */
     public static int leerInt(){
         Scanner teclado = new Scanner(System.in);
         int datos = teclado.nextInt();
@@ -401,6 +425,9 @@ public static void menuUsuario(){
         
     }
     
+    /** Lee un número decimal desde la entrada estándar.
+     * @return número decimal introducido por el usuario
+     */
     public static double leerDouble(){
         Scanner teclado = new Scanner(System.in);
         double datos = teclado.nextDouble();
