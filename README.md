@@ -1,29 +1,26 @@
 # Sistema de Gestión de Movilidad
 
-Sistema de gestión desarrollado en Java para administrar necesidades de movilidad, reservas, conductores, vehículos y usuarios dentro de un entorno de consola. El proyecto está pensado para apoyar la organización y control operativo de desplazamientos en una institución o empresa.
+Aplicación de consola en Java para registrar necesidades de movilidad y crear reservas asociadas a una necesidad, un vehículo y un conductor. La información se mantiene en memoria durante la ejecución.
 
 ## Descripción
 
-El sistema permite registrar y consultar necesidades de movilidad, asignar reservas, controlar el estado de los vehículos y conductores, así como gestionar usuarios con distintos roles. Su enfoque principal es facilitar la administración de servicios relacionados con traslados y moviliación interna.
+El sistema ofrece un flujo inicial de registro de solicitudes y recursos, junto con la creación de reservas. Es una versión en desarrollo: varias opciones de modificación, búsqueda, suspensión y eliminación todavía son marcadores sin funcionalidad.
 
 ## Objetivos
 
-- Centralizar la información de necesidades de movilidad.
-- Gestionar reservas de forma ordenada y eficiente.
-- Controlar conductores y vehículos disponibles.
-- Mantener usuarios y permisos dentro del sistema.
-- Brindar una interfaz de consola simple y funcional para uso administrativo.
+- Registrar solicitudes de movilidad y asociarlas a recursos registrados.
+- Mantener reservas, vehículos, conductores y usuarios en colecciones en memoria.
+- Proporcionar un flujo de consola para las operaciones implementadas.
 
 ## Funcionalidades principales
 
-- Inicio de sesión con usuarios predefinidos.
-- Gestión de usuarios.
-- Registro y visualización de necesidades de movilidad.
-- Gestión de reservas.
-- Administración de conductores.
-- Administración de vehículos.
-- Consulta por distintos criterios.
-- Manejo de estados mediante enumeraciones.
+- Inicio de sesión con usuarios de ejemplo `Admin` y `User`.
+- Registro y listado de necesidades de movilidad.
+- Registro y listado de vehículos y conductores.
+- Creación de reservas seleccionando una necesidad, un vehículo y un conductor registrados. La reserva se crea con estado `INICIADA`.
+- Validación para impedir reservas si falta una necesidad, un vehículo o un conductor.
+- Operaciones de alta, listado, búsqueda, modificación y eliminación de usuarios.
+- Las demás opciones de modificación, búsqueda, suspensión y eliminación de necesidades, reservas, vehículos y conductores están pendientes.
 
 ## Tecnologías
 
@@ -34,7 +31,7 @@ El sistema permite registrar y consultar necesidades de movilidad, asignar reser
 
 ## Requisitos
 
-- JDK 8 o superior
+- JDK 26 o superior (el proyecto está configurado con `javac.source=26` y `javac.target=26`)
 - NetBeans IDE o cualquier entorno Java compatible
 - Sistema operativo Windows, Linux o macOS
 
@@ -72,12 +69,19 @@ Movilidad/
 
 ### Desde línea de comandos
 
+En Windows PowerShell:
+
+```powershell
+javac -d build/classes (Get-ChildItem -Path src -Recurse -Filter *.java | ForEach-Object FullName)
+java -cp build/classes principal.Movilidad
+```
+
+En Linux o macOS:
+
 ```bash
 javac -d build/classes $(find src -name "*.java")
 java -cp build/classes principal.Movilidad
 ```
-
-> En sistemas Windows, la ejecución puede hacerse desde PowerShell o desde el IDE configurado para Java.
 
 ## Generar documentación Javadoc
 
@@ -100,7 +104,7 @@ El sistema incluye dos usuarios de ejemplo:
 
 ## Uso del sistema
 
-Una vez iniciada la aplicación, el usuario puede acceder al menú principal y elegir entre las opciones de:
+Una vez iniciada la aplicación, el usuario accede a los menús de:
 
 - Necesidades de movilidad
 - Reservas
@@ -108,11 +112,17 @@ Una vez iniciada la aplicación, el usuario puede acceder al menú principal y e
 - Vehículos
 - Usuarios
 
-Cada módulo ofrece operaciones de consulta, registro y administración básica, siguiendo una lógica orientada a consola.
+El flujo para crear una reserva es:
+
+1. Registrar una necesidad de movilidad. Las fechas se ingresan como `AAAA-MM-DD` y las horas como `HH:MM`.
+2. Registrar un vehículo y un conductor desde sus respectivos menús.
+3. Crear la reserva y seleccionar la necesidad, el vehículo y el conductor de las listas mostradas.
+
+Si falta cualquiera de los tres registros, la reserva no se crea. Los datos se pierden al cerrar el programa; todavía no hay persistencia en archivos ni base de datos.
 
 ## Estado del proyecto
 
-Este proyecto corresponde a una implementación inicial y funcional de gestión de movilidad en Java, orientada a la práctica académica y al aprendizaje del paradigma orientado a objetos.
+El proyecto tiene implementados los flujos básicos de alta de necesidades, vehículos y conductores, la creación de reservas vinculadas a esos registros y la gestión básica de usuarios. La persistencia, la validación de disponibilidad/capacidad de recursos y las operaciones de administración restantes están pendientes.
 
 ## Licencia
 

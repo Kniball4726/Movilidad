@@ -125,7 +125,7 @@ public class Conductor extends Trabajador {
 
     @Override
     public String toString() {
-        return "Conductores{" + "licencia=" + licencia + ", grado=" + grado + ", estado=" + estado + '}';
+        return "Conductor{" + super.toString() + ", licencia=" + licencia + ", grado=" + grado + ", estado=" + estado + '}';
     }
 
     

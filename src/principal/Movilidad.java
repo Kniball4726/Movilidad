@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package principal;
+import enums.Estado;
+import enums.TipoMovilidad;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +18,7 @@ import logica.Vehiculo;
 
 /** Punto de entrada y menús de la aplicación de gestión de movilidad. */
 public class Movilidad {
+    private static final Scanner teclado = new Scanner(System.in);
     /** Usuarios registrados en memoria. */
     public static List<Usuario> usuarios = new ArrayList<>();
     /** Vehículos registrados en memoria. */
@@ -138,7 +143,8 @@ public class Movilidad {
         switch (seleccion){
             case 1 ->{
                 System.out.println("\nCrear necesidad de movilidad");
-                
+                registrarNecesidadMovilidad();
+                menuPrincipal();
             }
             case 2 ->{
                 System.out.println("\nVer necesidades de movilidad");
@@ -187,7 +193,8 @@ public class Movilidad {
         switch (seleccion){
             case 1 ->{
                 System.out.println("\nCrear reserva");
-                
+                crearReserva();
+                menuPrincipal();
             }
             case 2 ->{
                 System.out.println("\nVer reservas");
@@ -219,8 +226,131 @@ public class Movilidad {
     
 
 
-/** Muestra las operaciones de conductores. */
-public static void menuConductor(){
+    /** Registra una necesidad para que pueda asociarse después a una reserva. */
+    private static void registrarNecesidadMovilidad() {
+        System.out.println("Solicitante:");
+        String solicitante = leerString();
+        System.out.println("Carrera o unidad:");
+        String carrera = leerString();
+        System.out.println("Motivo:");
+        String motivo = leerString();
+        System.out.println("Lugar de salida:");
+        String lugarSalida = leerString();
+        System.out.println("Lugar de destino:");
+        String lugarDestino = leerString();
+        System.out.println("Cantidad de pasajeros:");
+        int pasajeros = leerInt();
+        System.out.println("Fecha de salida (AAAA-MM-DD):");
+        LocalDate fechaSalida = LocalDate.parse(leerString());
+        System.out.println("Fecha de regreso (AAAA-MM-DD):");
+        LocalDate fechaRegreso = LocalDate.parse(leerString());
+        System.out.println("Hora de salida (HH:MM):");
+        LocalTime horaSalida = LocalTime.parse(leerString());
+        System.out.println("Hora de regreso (HH:MM):");
+        LocalTime horaRegreso = LocalTime.parse(leerString());
+
+        TipoMovilidad[] tipos = TipoMovilidad.values();
+        for (int i = 0; i < tipos.length; i++) {
+            System.out.println((i + 1) + ".- " + tipos[i]);
+        }
+        System.out.println("Seleccione el tipo de movilidad:");
+        int opcionTipo = leerInt();
+        if (opcionTipo < 1 || opcionTipo > tipos.length) {
+            System.out.println("Tipo de movilidad no válido; no se registró la necesidad.");
+            return;
+        }
+        System.out.println("Observaciones:");
+        String observaciones = leerString();
+
+        movilidad.add(new NeMovilidad(solicitante, carrera, motivo, lugarSalida, lugarDestino, pasajeros,
+                fechaSalida, fechaRegreso, horaSalida, horaRegreso, tipos[opcionTipo - 1], observaciones));
+        System.out.println("Necesidad de movilidad registrada.");
+    }
+
+    /** Crea una reserva únicamente a partir de una necesidad ya registrada. */
+    private static void crearReserva() {
+        if (movilidad.isEmpty()) {
+            System.out.println("No hay necesidades de movilidad registradas. Registre una antes de crear una reserva.");
+            return;
+        }
+        if (vehiculo.isEmpty()) {
+            System.out.println("No hay vehículos registrados. Registre un vehículo antes de crear una reserva.");
+            return;
+        }
+        if (conductor.isEmpty()) {
+            System.out.println("No hay conductores registrados. Registre un conductor antes de crear una reserva.");
+            return;
+        }
+
+        NeMovilidad necesidad = seleccionarDeLista("la necesidad de movilidad", movilidad);
+        if (necesidad == null) {
+            return;
+        }
+        Vehiculo vehiculoSeleccionado = seleccionarDeLista("el vehículo", vehiculo);
+        if (vehiculoSeleccionado == null) {
+            return;
+        }
+        Conductor conductorSeleccionado = seleccionarDeLista("el conductor", conductor);
+        if (conductorSeleccionado == null) {
+            return;
+        }
+
+        Reserva nuevaReserva = new Reserva(Estado.INICIADA, necesidad, vehiculoSeleccionado, conductorSeleccionado);
+        reserva.add(nuevaReserva);
+        System.out.println("Reserva creada con la necesidad, el vehículo y el conductor seleccionados.");
+    }
+
+    private static <T> T seleccionarDeLista(String descripcion, List<T> opciones) {
+        System.out.println("Seleccione " + descripcion + ":");
+        for (int i = 0; i < opciones.size(); i++) {
+            System.out.println((i + 1) + ".- " + opciones.get(i));
+        }
+        int seleccion = leerInt();
+        if (seleccion < 1 || seleccion > opciones.size()) {
+            System.out.println("Selección no válida; no se creó la reserva.");
+            return null;
+        }
+        return opciones.get(seleccion - 1);
+    }
+
+    private static void registrarConductor() {
+        System.out.println("Identificador numérico:");
+        int idPersona = leerInt();
+        System.out.println("Nombre:");
+        String nombre = leerString();
+        System.out.println("Identificador institucional:");
+        String id = leerString();
+        System.out.println("Cargo:");
+        String cargo = leerString();
+        System.out.println("Dependencia:");
+        String dependencia = leerString();
+        System.out.println("Licencia:");
+        String licencia = leerString();
+        System.out.println("Grado:");
+        String grado = leerString();
+
+        conductor.add(new Conductor(licencia, grado, "Disponible", idPersona, nombre, id, cargo, dependencia));
+        System.out.println("Conductor registrado.");
+    }
+
+    private static void registrarVehiculo() {
+        System.out.println("Marca:");
+        String marca = leerString();
+        System.out.println("Modelo:");
+        String modelo = leerString();
+        System.out.println("Patente:");
+        String patente = leerString();
+        System.out.println("Tipo de vehículo:");
+        String tipo = leerString();
+        System.out.println("Capacidad de pasajeros:");
+        int capacidad = leerInt();
+
+        vehiculo.add(new Vehiculo(marca, modelo, patente, tipo, "Disponible", capacidad));
+        System.out.println("Vehículo registrado.");
+    }
+
+    /** Muestra las operaciones de conductores. */
+    public static void menuConductor(){
     System.out.println("\n===========================================");
     System.out.println("Bienvenido al menú de Conductores");
     System.out.println("===========================================");
@@ -236,7 +366,8 @@ public static void menuConductor(){
         switch (seleccion){
             case 1 ->{
                 System.out.println("\nAgregar conductor");
-                
+                registrarConductor();
+                menuPrincipal();
             }
             case 2 ->{
                 System.out.println("\nVer conductor");
@@ -264,7 +395,7 @@ public static void menuConductor(){
     }
 
 /** Muestra las operaciones de vehículos. */
-public static void menuVehiculo(){
+    public static void menuVehiculo(){
     System.out.println("\n===========================================");
     System.out.println("Bienvenido al menú de Vehiculo");
     System.out.println("===========================================");
@@ -280,7 +411,8 @@ public static void menuVehiculo(){
         switch (seleccion){
             case 1 ->{
                 System.out.println("\nAgregar vehiculo");
-                
+                registrarVehiculo();
+                menuPrincipal();
             }
             case 2 ->{
                 System.out.println("\nVer vehiculo");
@@ -410,7 +542,6 @@ public static void menuUsuario(){
      * @return texto introducido por el usuario
      */
     public static String leerString(){
-        Scanner teclado = new Scanner(System.in);
         String datos = teclado.nextLine();
         return datos;
     }
@@ -419,8 +550,7 @@ public static void menuUsuario(){
      * @return entero introducido por el usuario
      */
     public static int leerInt(){
-        Scanner teclado = new Scanner(System.in);
-        int datos = teclado.nextInt();
+        int datos = Integer.parseInt(leerString().trim());
         return datos;
         
     }
@@ -429,8 +559,7 @@ public static void menuUsuario(){
      * @return número decimal introducido por el usuario
      */
     public static double leerDouble(){
-        Scanner teclado = new Scanner(System.in);
-        double datos = teclado.nextDouble();
+        double datos = Double.parseDouble(leerString().trim());
         return datos;
         
     }

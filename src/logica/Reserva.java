@@ -5,6 +5,7 @@
 package logica;
 
 import enums.Estado;
+import java.util.Objects;
 
 /** Vincula una necesidad de movilidad con un vehículo y un conductor. */
 public class Reserva {
@@ -12,10 +13,6 @@ public class Reserva {
     private NeMovilidad movilidad;
     private Vehiculo vehiculo;
     private Conductor conductor;
-
-    /** Crea una reserva sin datos iniciales. */
-    public Reserva() {
-    }
 
     /**
      * Crea una reserva completa.
@@ -26,9 +23,9 @@ public class Reserva {
      */
     public Reserva(Estado estado, NeMovilidad movilidad, Vehiculo vehiculo, Conductor conductor) {
         this.estado = estado;
-        this.movilidad = movilidad;
-        this.vehiculo = vehiculo;
-        this.conductor = conductor;
+        this.movilidad = Objects.requireNonNull(movilidad, "La reserva requiere una necesidad de movilidad");
+        this.vehiculo = Objects.requireNonNull(vehiculo, "La reserva requiere un vehículo");
+        this.conductor = Objects.requireNonNull(conductor, "La reserva requiere un conductor");
     }
 
     /** @return estado de la reserva */
@@ -48,7 +45,7 @@ public class Reserva {
 
     /** @param movilidad nueva necesidad asociada */
     public void setMovilidad(NeMovilidad movilidad) {
-        this.movilidad = movilidad;
+        this.movilidad = Objects.requireNonNull(movilidad, "La reserva requiere una necesidad de movilidad");
     }
 
     /** @return vehículo asignado */
@@ -58,7 +55,7 @@ public class Reserva {
 
     /** @param vehiculo nuevo vehículo asignado */
     public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
+        this.vehiculo = Objects.requireNonNull(vehiculo, "La reserva requiere un vehículo");
     }
 
     /** @return conductor asignado */
@@ -68,7 +65,7 @@ public class Reserva {
 
     /** @param conductor nuevo conductor asignado */
     public void setConductor(Conductor conductor) {
-        this.conductor = conductor;
+        this.conductor = Objects.requireNonNull(conductor, "La reserva requiere un conductor");
     }
 
     /** @return representación textual de la reserva */
