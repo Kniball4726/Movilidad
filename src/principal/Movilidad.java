@@ -252,7 +252,7 @@ public class Movilidad {
         for (int i = 0; i < tipos.length; i++) {
             System.out.println((i + 1) + ".- " + tipos[i]);
         }
-        System.out.println("Seleccione el tipo de movilidad:");
+        System.out.println("\nSeleccione el tipo de movilidad:\n");
         int opcionTipo = leerInt();
         if (opcionTipo < 1 || opcionTipo > tipos.length) {
             System.out.println("Tipo de movilidad no válido; no se registró la necesidad.");
