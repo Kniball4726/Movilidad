@@ -47,12 +47,11 @@ public class Movilidad {
      */
     public static String ingreso(){
 
-        Usuario usuarioAdmin = new Usuario(1, "Admin", "grupo1", "Admin");
-        Usuario user = new Usuario(2,"User","grupo2","User");
+        usuarios.add(new Usuario(1, "Admin", "grupo1", "Admin"));
+        usuarios.add(new Usuario(2, "User", "grupo2", "User"));
+        vehiculo.add(new Vehiculo("Toyota", "Corolla", "ABC123", "Sedan", "Disponible", 4));
+        conductor.add(new Conductor("B", "Senior", "Disponible", 1, "Juan Pérez", "JP001", "Conductor", "Transporte"));
 
-        usuarios.add(usuarioAdmin);
-        usuarios.add(user);
-        
         int contador=0;
        
         while (contador < 3){
@@ -65,7 +64,7 @@ public class Movilidad {
             System.out.println("Indique contraseña: ");
             String clave = leerString();
         
-            if (usuario.equals(usuarioAdmin.getUsuario()) || usuario.equals(user.getUsuario()) && clave.equals(usuarioAdmin.getContrasena()) || clave.equals(user.getContrasena())){
+            if (usuario.equals(usuarios.get(0).getUsuario()) || usuario.equals(usuarios.get(1).getUsuario()) && clave.equals(usuarios.get(0).getContrasena()) || clave.equals(usuarios.get(1).getContrasena())){
                 menuPrincipal();
                 break;
             
@@ -79,7 +78,7 @@ public class Movilidad {
                 System.out.println("\nIntrodujo mal clave y/o contraseña 3 veces");
             }
         
-        return usuarioAdmin.getRol();
+        return usuarios.get(0).getRol();
     }
     
  /** Muestra el menú principal y procesa la opción seleccionada. */
