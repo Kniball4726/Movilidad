@@ -63,6 +63,9 @@ public class Movilidad {
             String usuario = leerString();
             System.out.println("Indique contraseña: ");
             String clave = leerString();
+
+
+            
         
             if (usuario.equals(usuarios.get(0).getUsuario()) || usuario.equals(usuarios.get(1).getUsuario()) && clave.equals(usuarios.get(0).getContrasena()) || clave.equals(usuarios.get(1).getContrasena())){
                 menuPrincipal();
