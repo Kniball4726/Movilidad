@@ -4,9 +4,8 @@ package principal;
 public final class MenuPrincipal {
     private final MenuNecesidades menuNecesidades = new MenuNecesidades();
     private final MenuConductores menuConductores = new MenuConductores();
-    private final MenuVehiculos menuVehiculos = new MenuVehiculos();
-    private final MenuReservas menuReservas = new MenuReservas(menuNecesidades, menuConductores, menuVehiculos);
     private final MenuUsuarios menuUsuarios = new MenuUsuarios();
+    private final MenuVehiculos menuVehiculos = new MenuVehiculos();
 
     public void mostrar() {
         boolean salir = false;
@@ -23,7 +22,6 @@ public final class MenuPrincipal {
 
             switch (Movilidad.leerInt()) {
                 case 1 -> menuNecesidades.mostrar();
-                case 2 -> menuReservas.mostrar();
                 case 3 -> menuConductores.mostrar();
                 case 4 -> menuVehiculos.mostrar();
                 case 5 -> menuUsuarios.mostrar();
