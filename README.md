@@ -4,23 +4,26 @@ Aplicación de consola en Java para registrar necesidades de movilidad y crear r
 
 ## Descripción
 
-El sistema ofrece un flujo inicial de registro de solicitudes y recursos, junto con la creación de reservas. Es una versión en desarrollo: varias opciones de modificación, búsqueda, suspensión y eliminación todavía son marcadores sin funcionalidad.
+El sistema ofrece un flujo de consola para autenticar usuarios, registrar necesidades de movilidad, administrar vehículos y conductores, y crear reservas asociadas a los recursos disponibles. Los datos se mantienen en memoria durante la ejecución.
 
 ## Objetivos
 
 - Registrar solicitudes de movilidad y asociarlas a recursos registrados.
 - Mantener reservas, vehículos, conductores y usuarios en colecciones en memoria.
-- Proporcionar un flujo de consola para las operaciones implementadas.
+- Proporcionar un flujo de consola validado para las operaciones del sistema.
 
 ## Funcionalidades principales
 
 - Inicio de sesión con usuarios de ejemplo `Admin` y `User`.
-- Registro y listado de necesidades de movilidad.
-- Registro y listado de vehículos y conductores.
-- Creación de reservas seleccionando una necesidad, un vehículo y un conductor registrados. La reserva se crea con estado `INICIADA`.
-- Validación para impedir reservas si falta una necesidad, un vehículo o un conductor.
-- Operaciones de alta, listado, búsqueda, modificación y eliminación de usuarios.
-- Las demás opciones de modificación, búsqueda, suspensión y eliminación de necesidades, reservas, vehículos y conductores están pendientes.
+- Alta, listado, búsqueda, modificación, suspensión y eliminación de necesidades de movilidad.
+- Alta, listado, búsqueda, modificación y eliminación de vehículos.
+- Alta, listado, búsqueda, modificación y eliminación de conductores.
+- Alta, listado, búsqueda, modificación y eliminación de usuarios.
+- Creación, listado, búsqueda, modificación, suspensión y eliminación de reservas.
+- Validación de números, fechas, horas, cantidad de pasajeros y selección de opciones.
+- Validación de fechas y horas de regreso posteriores o iguales a las de salida.
+- Validación de capacidad y disponibilidad de vehículos y conductores antes de crear una reserva.
+- Cambio del estado de los recursos a `En Uso` al asignarlos a una reserva.
 
 ## Tecnologías
 
@@ -72,7 +75,7 @@ Movilidad/
 En Windows PowerShell:
 
 ```powershell
-javac -d build/classes (Get-ChildItem -Path src -Recurse -Filter *.java | ForEach-Object FullName)
+javac -encoding UTF-8 -source 26 -target 26 -d build/classes (Get-ChildItem -Path src -Recurse -Filter *.java | ForEach-Object FullName)
 java -cp build/classes principal.Movilidad
 ```
 
@@ -118,11 +121,15 @@ El flujo para crear una reserva es:
 2. Registrar un vehículo y un conductor desde sus respectivos menús.
 3. Crear la reserva y seleccionar la necesidad, el vehículo y el conductor de las listas mostradas.
 
-Si falta cualquiera de los tres registros, la reserva no se crea. Los datos se pierden al cerrar el programa; todavía no hay persistencia en archivos ni base de datos.
+Si falta cualquiera de los tres registros, la reserva no se crea. El vehículo debe tener capacidad suficiente y tanto el vehículo como el conductor deben estar disponibles. Al crear la reserva, ambos recursos pasan a estado `En Uso`.
+
+Las entradas inválidas muestran un mensaje y solicitan nuevamente el dato correspondiente. Las opciones `0` permiten volver al menú anterior.
+
+Los datos se pierden al cerrar el programa; la aplicación no utiliza persistencia en archivos ni base de datos.
 
 ## Estado del proyecto
 
-El proyecto tiene implementados los flujos básicos de alta de necesidades, vehículos y conductores, la creación de reservas vinculadas a esos registros y la gestión básica de usuarios. La persistencia, la validación de disponibilidad/capacidad de recursos y las operaciones de administración restantes están pendientes.
+La versión actual implementa y valida los flujos de administración de necesidades, vehículos, conductores, usuarios y reservas. La persistencia en archivos o base de datos queda fuera del alcance y los datos continúan almacenándose únicamente en memoria.
 
 ## Licencia
 

@@ -22,8 +22,8 @@ public final class MenuReservas {
     }
 
     public void mostrar() {
-        boolean volver = false;
-        while (!volver) {
+        
+        while (true) {
             System.out.println("\n===========================================");
             System.out.println("Bienvenido al menú de reservas");
             System.out.println("===========================================");
@@ -42,14 +42,16 @@ public final class MenuReservas {
                 case 4 -> buscar();
                 case 5 -> suspender();
                 case 6 -> eliminar();
-                case 0 -> volver = true;
+                case 0 -> { return; }
                 default -> System.out.println("Introduzca un número dentro del menú");
             }
         }
     }
 
     private void listar() {
-        System.out.println("\nVer reservas");
+        System.out.println("===========================");
+        System.out.println("Ver reservas");
+        System.out.println("===========================");
         if (Movilidad.reserva.isEmpty()) {
             System.out.println("No hay reservas registradas.");
             return;
@@ -60,6 +62,9 @@ public final class MenuReservas {
     }
 
     private void modificar() {
+        System.out.println("===========================");
+        System.out.println("Modificar reserva");
+        System.out.println("===========================");
         Reserva reserva = seleccionarReserva();
         if (reserva == null) {
             return;
@@ -107,6 +112,13 @@ public final class MenuReservas {
     }
 
     private void buscar() {
+        System.out.println("===========================");
+        System.out.println("Buscar reserva");
+        System.out.println("===========================");
+        if (Movilidad.reserva.isEmpty()) {
+            System.out.println("No hay reservas registradas.");
+            return;
+        }   
         Reserva reserva = seleccionarReserva();
         if (reserva != null) {
             System.out.println("\nReserva encontrada:");
@@ -115,18 +127,30 @@ public final class MenuReservas {
     }
 
     private void suspender() {
-        Reserva reserva = seleccionarReserva();
-        if (reserva != null) {
-            reserva.setEstado(Estado.SUSPENDIDA);
-            System.out.println("Reserva suspendida.");
+        System.out.println("===========================");
+        System.out.println("Suspender reserva");
+        System.out.println("===========================");
+        if (Movilidad.reserva.isEmpty()) {
+            System.out.println("No hay reservas registradas.");
+            return;
+        }
+            Reserva reserva = seleccionarReserva();
+            if (reserva != null) {
+                reserva.setEstado(Estado.SUSPENDIDA);
+                System.out.println("Reserva suspendida.");
         }
     }
 
     private void eliminar() {
+        System.out.println("===========================");
+        System.out.println("Eliminar reserva");
+        System.out.println("===========================");
+
         Reserva reserva = seleccionarReserva();
-        if (reserva == null) {
-            return;
-        }
+            if (reserva == null) {
+                System.out.println("No se seleccionó ninguna reserva para eliminar.");
+                return;
+            }
 
         System.out.println("¿Confirma que desea eliminar esta reserva? (s/n)");
         if (Movilidad.leerString().trim().equalsIgnoreCase("s")) {
@@ -138,6 +162,9 @@ public final class MenuReservas {
     }
 
     private Reserva seleccionarReserva() {
+        System.out.println("===========================");
+        System.out.println("Seleccione una reserva");
+        System.out.println("===========================");
         if (Movilidad.reserva.isEmpty()) {
             System.out.println("No hay reservas registradas.");
             return null;
@@ -157,20 +184,24 @@ public final class MenuReservas {
     }
 
     private void crear() {
+        System.out.println("===========================");
+        System.out.println("Crear reserva");
+        System.out.println("===========================");
         if (Movilidad.movilidad.isEmpty()) {
             System.out.println("No hay necesidades de movilidad registradas. Registre una antes de crear una reserva.");
-            menuNecesidades.mostrar();
+            MenuNecesidades.mostrar();
             if (Movilidad.movilidad.isEmpty()) {
+                System.out.println("No hay necesidades de movilidad registradas.");
                 return;
             }
         }
         if (Movilidad.vehiculo.isEmpty()) {
             System.out.println("Registre un vehículo para continuar.");
-            menuVehiculos.registrar();
+            MenuVehiculos.registrar();
         }
         if (Movilidad.conductor.isEmpty()) {
             System.out.println("Registre un conductor para continuar.");
-            menuConductores.registrar();
+            MenuConductores.registrar();
         }
 
         NeMovilidad necesidad = seleccionar("la necesidad de movilidad", Movilidad.movilidad);
@@ -179,13 +210,26 @@ public final class MenuReservas {
         if (necesidad == null || vehiculo == null || conductor == null) {
             return;
         }
+        if (vehiculo.getCapacidad() < necesidad.getPasajeros()) {
+            System.out.println("El vehículo no tiene capacidad suficiente para esta necesidad.");
+            return;
+        }
+        if (!"Disponible".equalsIgnoreCase(vehiculo.getEstado())
+                || !"Disponible".equalsIgnoreCase(conductor.getEstado())) {
+            System.out.println("El vehículo y el conductor deben estar disponibles.");
+            return;
+        }
 
         Movilidad.reserva.add(new Reserva(Estado.INICIADA, necesidad, vehiculo, conductor));
+        vehiculo.setEstado("En Uso");
+        conductor.setEstado("En Uso");
         System.out.println("Reserva creada con la necesidad, el vehículo y el conductor seleccionados.");
     }
 
     private <T> T seleccionar(String descripcion, List<T> opciones) {
         System.out.println("Seleccione " + descripcion + ":");
+        System.out.println("===========================");
+        
         for (int i = 0; i < opciones.size(); i++) {
             System.out.println((i + 1) + ".- " + opciones.get(i));
         }

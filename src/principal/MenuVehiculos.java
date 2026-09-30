@@ -4,9 +4,8 @@ import logica.Vehiculo;
 
 public final class MenuVehiculos{
 
-    public void mostrar(){
-        boolean volver = false;
-        while (!volver) {
+    public static void mostrar(){
+        while (true) {
         System.out.println("\n===========================================");
         System.out.println("Bienvenido al menú de Vehiculo");
         System.out.println("===========================================");
@@ -23,17 +22,17 @@ public final class MenuVehiculos{
             case 3 -> modificarVehiculo();
             case 4 -> buscarVehiculo();
             case 5 -> eliminarVehiculo();
-            case 0 -> volver = true;
-            default -> {
-                System.out.println("\nIntroduzca un numero dentro del menu"); 
-                mostrar();
-        }
+            case 0 -> { return; }
+            default -> System.out.println("\nIntroduzca un numero dentro del menu");
     }
 
     }
 }
 
-public void registrar() {
+public static void registrar() {
+        System.out.println("======================");
+        System.out.println("Registrar Vehiculo");
+        System.out.println("======================");
         System.out.println("Marca:");
         String marca = Movilidad.leerString();
         System.out.println("Modelo:");
@@ -47,39 +46,19 @@ public void registrar() {
 
         Movilidad.vehiculo.add(new Vehiculo(marca, modelo, patente, tipo, "Disponible", capacidad));
         System.out.println("Vehículo registrado.");
-        System.out.println("\nDesea registrar otro vehiculo? (s/n)");
-        String crear = Movilidad.leerString();
-
-        if (crear.toLowerCase().equals("s")){
-            registrar();
-        }else if(crear.toLowerCase().equals("n")){
-            mostrar();
-        }else{
-            System.out.println("Debe introducir un dato valido");
-            mostrar();
-        }
     }
 
-private void verVehiculo (){
+private static void verVehiculo (){
     System.out.println("=======================");
     System.out.println("Ver vehiculo");
     System.out.println("=======================");
                 
-    if (Movilidad.vehiculo.isEmpty()) {
+        if (Movilidad.vehiculo.isEmpty()) {
         System.out.println("No hay vehículos registrados.");
-        System.out.println("Desea registrar un vehiculo? (s/n)");
-        String crear = Movilidad.leerString();
-        if (crear.toLowerCase().equals("s")){
-           registrar();
-        }else if(crear.toLowerCase().equals("n")){
-            mostrar();
-        }else{
-            System.out.println("Debe seleccionar una opcion valida");
-            mostrar();
-        }
+            return;
     }else{
-        for(Vehiculo v : Movilidad.vehiculo){
-            System.out.println(v);
+        for(Vehiculo vehiculo : Movilidad.vehiculo){
+            System.out.println(vehiculo);
         };
     
 }
@@ -91,75 +70,76 @@ private static void buscarVehiculo() {
     System.out.println("============================");
     System.out.println("Ingrese patente a buscar:");
     String patente = Movilidad.leerString();
-    boolean encontrado = false;
         
-    for (Vehiculo v : Movilidad.vehiculo) {
-        if (v.getPatente().equalsIgnoreCase(patente)) {
+    boolean encontrado = false;
+    for (Vehiculo vehiculo : Movilidad.vehiculo) {
+        if (vehiculo.getPatente().equalsIgnoreCase(patente)) {
             System.out.println("\nVehículo encontrado:");
-            System.out.println(v);
+            System.out.println(vehiculo);
             encontrado = true;
             break;
         }
     }
-        
-        if (!encontrado) {
-            System.out.println("Vehículo no encontrado con la patente especificada.");
-        }
+    if (!encontrado) {
+        System.out.println("Vehículo no encontrado con la patente especificada.");
+    }
     }
 
 private static void modificarVehiculo() {
+    System.out.println("=======================");
+    System.out.println("Modificar Vehiculo");
+    System.out.println("=======================");
    
     System.out.println("Ingrese patente del vehículo a modificar:");
     
     String patente = Movilidad.leerString();
-    
-    boolean encontrado = false;
-    for (Vehiculo v : Movilidad.vehiculo) {
-        if (v.getPatente().equalsIgnoreCase(patente)) {
-            System.out.println("Vehículo encontrado: " + v);
+
+    for (Vehiculo vehiculo : Movilidad.vehiculo) {
+        if (vehiculo.getPatente().equalsIgnoreCase(patente)) {
+            System.out.println("Vehículo encontrado: " + vehiculo);
                 
             System.out.println("Ingrese nueva marca:");
-            v.setMarca(Movilidad.leerString());
+            vehiculo.setMarca(Movilidad.leerString());
                 
             System.out.println("Ingrese nuevo modelo:");
-            v.setModelo(Movilidad.leerString());
+            vehiculo.setModelo(Movilidad.leerString());
                 
             System.out.println("Ingrese nuevo tipo:");
-            v.setTipo(Movilidad.leerString());
+            vehiculo.setTipo(Movilidad.leerString());
                 
             System.out.println("Ingrese nuevo estado (ej. Disponible, En Mantenimiento, En Uso):");
-            v.setEstado(Movilidad.leerString());
+            vehiculo.setEstado(Movilidad.leerString());
                 
             System.out.println("Ingrese nueva capacidad de pasajeros:");
-            v.setCapacidad(Movilidad.leerInt());
+            vehiculo.setCapacidad(Movilidad.leerInt());
 
             System.out.println("Vehículo modificado exitosamente.");
-            encontrado = true;
-            break;
+            return;
         }
     }
 
-        if (!encontrado) {
-            System.out.println("Vehículo no encontrado.");
-        }
+        System.out.println("Vehículo no encontrado.");
     }
 
     private static void eliminarVehiculo() {
+        System.out.println("=======================");
+        System.out.println("Eliminar Vehiculo");
+        System.out.println("=======================");
+        if (Movilidad.vehiculo.isEmpty()) {
+            System.out.println("No hay vehículos registrados.");
+            return;
+        }
         System.out.println("Ingrese patente del vehículo a eliminar:");
         String patente = Movilidad.leerString();
-        boolean encontrado = false;
-
+        
         for (int i = 0; i < Movilidad.vehiculo.size(); i++) {
             if (Movilidad.vehiculo.get(i).getPatente().equalsIgnoreCase(patente)) {
                 Movilidad.vehiculo.remove(i);
                 System.out.println("Vehículo eliminado exitosamente.");
-                encontrado = true;
-                break;
+                return;
             }
         }
 
-        if (!encontrado) {
-            System.out.println("Vehículo no encontrado.");
-        }
+        System.out.println("Vehículo no encontrado.");
     }
 }
