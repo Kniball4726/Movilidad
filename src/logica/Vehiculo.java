@@ -57,6 +57,15 @@ public class Vehiculo {
         this.modelo = modelo;
     }
 
+    /** @return patente o matrícula del vehículo */
+    public String getPatente() {
+        return patente;
+    }
+
+    /** @param patente nueva patente o matrícula */
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
 
     /** @return tipo de vehículo */
     public String getTipo() {
@@ -91,7 +100,7 @@ public class Vehiculo {
     /** @return representación textual del vehículo */
     @Override
     public String toString() {
-        return "Vehiculo{" + "marca=" + marca + ", modelo=" + modelo + ", patente=" + patente + ", tipo=" + tipo + ", estado=" + estado + ", capacidad=" + capacidad + '}';
+        return "Vehiculo:\n\nMarca: " + marca + "\nModelo: " + modelo + "\nPatente: " + patente + "\nTipo: " + tipo + "\nEstado: " + estado + "\nCapacidad: " + capacidad + "\n";
     }
 
     

@@ -7,6 +7,9 @@ package principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import logica.Conductor;
 import logica.NeMovilidad;
 import logica.Reserva;
@@ -45,10 +48,10 @@ public class Movilidad {
             System.out.println("Indique contraseña: ");
             String clave = leerString();
 
-            if (usuario.equals(usuarios.get(0).getUsuario())
-                    || usuario.equals(usuarios.get(1).getUsuario())
-                    && clave.equals(usuarios.get(0).getContrasena())
-                    || clave.equals(usuarios.get(1).getContrasena())) {
+                boolean autenticado = usuarios.stream()
+                    .anyMatch(candidato -> candidato.getUsuario().equals(usuario)
+                    && candidato.getContrasena().equals(clave));
+                if (autenticado) {
                 new MenuPrincipal().mostrar();
                 break;
             }
@@ -69,6 +72,32 @@ public class Movilidad {
     }
 
     public static int leerInt() {
-        return Integer.parseInt(leerString().trim());
+        while (true) {
+            try {
+                return Integer.parseInt(leerString().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Debe introducir un número entero válido.");
+            }
+        }
+    }
+
+    public static LocalDate leerFecha() {
+        while (true) {
+            try {
+                return LocalDate.parse(leerString().trim());
+            } catch (DateTimeParseException e) {
+                System.out.println("Fecha inválida. Use el formato AAAA-MM-DD.");
+            }
+        }
+    }
+
+    public static LocalTime leerHora() {
+        while (true) {
+            try {
+                return LocalTime.parse(leerString().trim());
+            } catch (DateTimeParseException e) {
+                System.out.println("Hora inválida. Use el formato HH:MM.");
+            }
+        }
     }
 }

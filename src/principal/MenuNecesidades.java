@@ -7,9 +7,8 @@ import logica.NeMovilidad;
 
 /** Gestiona el registro y la consulta de necesidades de movilidad. */
 public final class MenuNecesidades {
-    public void mostrar() {
-        boolean volver = false;
-        while (!volver) {
+    public static void mostrar() {
+        while (true) {
             System.out.println("\n================================================");
             System.out.println("Bienvenido al menú de necesidades de movilidad");
             System.out.println("==================================================");
@@ -30,21 +29,17 @@ public final class MenuNecesidades {
                     }
                 }
                 case 2 -> mostrarNecesidades();
-                case 3 -> {
-                    System.out.println("Modificar necesidad de movilidad");
-                    mostrarNecesidades();
-                }
-                case 4 -> System.out.println("Buscar necesidad de movilidad");
-                
-                case 5 -> System.out.println("Suspender necesidad de movilidad");
-                case 6 -> System.out.println("Eliminar necesidad de movilidad");
-                case 0 -> volver = true;
+                case 3 -> modificar();
+                case 4 -> buscar();
+                case 5 -> suspender();
+                case 6 -> eliminar();
+                case 0 -> { return; }
                 default -> System.out.println("Introduzca un número dentro del menú");
             }
         }
     }
 
-    private void mostrarNecesidades() {
+    private static void mostrarNecesidades() {
         if (Movilidad.movilidad.isEmpty()) {
             System.out.println("No existe alguna necesidad de movilidad");
             System.out.println("Desea crear una necesidad de movilidad? (s/n)");
@@ -62,7 +57,7 @@ public final class MenuNecesidades {
         }
     }
 
-    void registrar() {
+    static void registrar() {
         System.out.println("\n=====================================");
         System.out.println("Registro de necesidad de Movilidad");
         System.out.println("======================================");
@@ -77,15 +72,33 @@ public final class MenuNecesidades {
         System.out.println("Lugar de destino:");
         String lugarDestino = Movilidad.leerString();
         System.out.println("Cantidad de pasajeros:");
-        int pasajeros = Movilidad.leerInt();
+        int pasajeros;
+        do {
+            pasajeros = Movilidad.leerInt();
+            if (pasajeros <= 0) {
+                System.out.println("La cantidad de pasajeros debe ser mayor que cero.");
+            }
+        } while (pasajeros <= 0);
         System.out.println("Fecha de salida (AAAA-MM-DD):");
-        LocalDate fechaSalida = LocalDate.parse(Movilidad.leerString());
+        LocalDate fechaSalida = Movilidad.leerFecha();
         System.out.println("Fecha de regreso (AAAA-MM-DD):");
-        LocalDate fechaRegreso = LocalDate.parse(Movilidad.leerString());
+        LocalDate fechaRegreso;
+        do {
+            fechaRegreso = Movilidad.leerFecha();
+            if (fechaRegreso.isBefore(fechaSalida)) {
+                System.out.println("La fecha de regreso no puede ser anterior a la fecha de salida.");
+            }
+        } while (fechaRegreso.isBefore(fechaSalida));
         System.out.println("Hora de salida (HH:MM):");
-        LocalTime horaSalida = LocalTime.parse(Movilidad.leerString());
+        LocalTime horaSalida = Movilidad.leerHora();
         System.out.println("Hora de regreso (HH:MM):");
-        LocalTime horaRegreso = LocalTime.parse(Movilidad.leerString());
+        LocalTime horaRegreso;
+        do {
+            horaRegreso = Movilidad.leerHora();
+            if (fechaSalida.equals(fechaRegreso) && horaRegreso.isBefore(horaSalida)) {
+                System.out.println("La hora de regreso no puede ser anterior a la hora de salida.");
+            }
+        } while (fechaSalida.equals(fechaRegreso) && horaRegreso.isBefore(horaSalida));
 
         TipoMovilidad[] tipos = TipoMovilidad.values();
         for (int i = 0; i < tipos.length; i++) {
@@ -103,5 +116,64 @@ public final class MenuNecesidades {
         Movilidad.movilidad.add(new NeMovilidad(solicitante, carrera, motivo, lugarSalida, lugarDestino,
                 pasajeros, fechaSalida, fechaRegreso, horaSalida, horaRegreso, tipos[opcionTipo - 1], observaciones));
         System.out.println("Necesidad de movilidad registrada.");
+    }
+
+    private static void modificar() {
+        NeMovilidad necesidad = seleccionar();
+        if (necesidad == null) {
+            return;
+        }
+        System.out.println("Nuevo motivo:");
+        necesidad.setMotivo(Movilidad.leerString());
+        System.out.println("Nuevo lugar de salida:");
+        necesidad.setLugarSalida(Movilidad.leerString());
+        System.out.println("Nuevo lugar de destino:");
+        necesidad.setLugarDestino(Movilidad.leerString());
+        System.out.println("Necesidad modificada.");
+    }
+
+    private static void buscar() {
+        System.out.println("Indique solicitante a buscar:");
+        String solicitante = Movilidad.leerString();
+        for (NeMovilidad necesidad : Movilidad.movilidad) {
+            if (necesidad.getSolicitante().equalsIgnoreCase(solicitante)) {
+                System.out.println(necesidad);
+                return;
+            }
+        }
+        System.out.println("Necesidad no encontrada.");
+    }
+
+    private static void eliminar() {
+        NeMovilidad necesidad = seleccionar();
+        if (necesidad != null) {
+            Movilidad.movilidad.remove(necesidad);
+            System.out.println("Necesidad eliminada.");
+        }
+    }
+
+    private static void suspender() {
+        NeMovilidad necesidad = seleccionar();
+        if (necesidad != null) {
+            necesidad.setSuspendida(true);
+            System.out.println("Necesidad suspendida.");
+        }
+    }
+
+    private static NeMovilidad seleccionar() {
+        if (Movilidad.movilidad.isEmpty()) {
+            System.out.println("No hay necesidades registradas.");
+            return null;
+        }
+        mostrarNecesidades();
+        System.out.println("Seleccione el número de necesidad (0 para cancelar):");
+        int seleccion = Movilidad.leerInt();
+        if (seleccion < 1 || seleccion > Movilidad.movilidad.size()) {
+            if (seleccion != 0) {
+                System.out.println("Selección no válida.");
+            }
+            return null;
+        }
+        return Movilidad.movilidad.get(seleccion - 1);
     }
 }

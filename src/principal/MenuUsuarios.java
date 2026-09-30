@@ -4,9 +4,8 @@ import logica.Usuario;
 
 /** Gestiona las operaciones disponibles para usuarios. */
 public final class MenuUsuarios {
-    public void mostrar() {
-        boolean volver = false;
-        while (!volver) {
+    public static void mostrar() {
+        while (true) {
             System.out.println("\n===========================================");
             System.out.println("Bienvenido al menú de usuarios");
             System.out.println("===========================================");
@@ -23,13 +22,13 @@ public final class MenuUsuarios {
                 case 3 -> buscar();
                 case 4 -> modificar();
                 case 5 -> eliminar();
-                case 0 -> volver = true;
+                case 0 -> { return; }
                 default -> System.out.println("Introduzca un número dentro del menú");
             }
         }
     }
 
-    private void agregar() {
+    private static void agregar() {
         System.out.println("=========================");
         System.err.println("Ingreso de usuario");
         System.out.println("=========================");
@@ -44,14 +43,14 @@ public final class MenuUsuarios {
         Movilidad.usuarios.add(new Usuario(idUsuario, usuario, contrasena, rol));
     }
 
-    private void listar() {
+    private static void listar() {
         System.out.println("\nVer usuarios");
         for (Usuario usuario : Movilidad.usuarios) {
             System.out.println(usuario);
         }
     }
 
-    private void buscar() {
+    private static void buscar() {
         System.out.println("====================");
         System.out.println("Buscar usuario");
         System.out.println("====================");
@@ -66,7 +65,7 @@ public final class MenuUsuarios {
         System.out.println("Usuario no encontrado");
     }
 
-    private void modificar() {
+    private static void modificar() {
         System.out.println("========================");
         System.out.println("Modificar usuario");
         System.out.println("========================");
@@ -90,7 +89,7 @@ public final class MenuUsuarios {
         System.out.println("Usuario no encontrado");
     }
 
-    private void eliminar() {
+    private static void eliminar() {
         System.out.println("========================");
         System.out.println("Eliminar usuario");
         System.out.println("========================");

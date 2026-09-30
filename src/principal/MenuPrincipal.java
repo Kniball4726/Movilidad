@@ -2,15 +2,9 @@ package principal;
 
 /** Coordina el menú principal y sus módulos. */
 public final class MenuPrincipal {
-    private final MenuNecesidades menuNecesidades = new MenuNecesidades();
-    private final MenuConductores menuConductores = new MenuConductores();
-    private final MenuVehiculos menuVehiculos = new MenuVehiculos();
-    private final MenuReservas menuReservas = new MenuReservas(menuNecesidades, menuConductores, menuVehiculos);
-    private final MenuUsuarios menuUsuarios = new MenuUsuarios();
 
-    public void mostrar() {
-        boolean salir = false;
-        while (!salir) {
+        public void mostrar() {
+        while (true) {
             System.out.println("\n===========================================");
             System.out.println("Bienvenidos al sistema de reservas ");
             System.out.println("===========================================");
@@ -22,14 +16,14 @@ public final class MenuPrincipal {
             System.out.println("0.- Salir");
 
             switch (Movilidad.leerInt()) {
-                case 1 -> menuNecesidades.mostrar();
-                case 2 -> menuReservas.mostrar();
-                case 3 -> menuConductores.mostrar();
-                case 4 -> menuVehiculos.mostrar();
-                case 5 -> menuUsuarios.mostrar();
+                case 1 -> MenuNecesidades.mostrar();
+                case 2 -> new MenuReservas(new MenuNecesidades(), new MenuConductores(), new MenuVehiculos()).mostrar();
+                case 3 -> MenuConductores.mostrar();
+                case 4 -> MenuVehiculos.mostrar();
+                case 5 -> MenuUsuarios.mostrar();
                 case 0 -> {
                     System.out.println("Saliendo . . .");
-                    salir = true;
+                    return;
                 }
                 default -> System.out.println("Debe introducir un número del menu");
             }

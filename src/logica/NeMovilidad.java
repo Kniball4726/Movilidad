@@ -22,6 +22,7 @@ public class NeMovilidad {
     private LocalTime horaRegreso;
     private TipoMovilidad tipo;
     private String observaciones;
+    private boolean suspendida;
 
     /** Crea una necesidad sin datos iniciales. */
     public NeMovilidad() {
@@ -179,13 +180,22 @@ public class NeMovilidad {
         this.observaciones = observaciones;
     }
 
+    public boolean isSuspendida() {
+        return suspendida;
+    }
+
+    public void setSuspendida(boolean suspendida) {
+        this.suspendida = suspendida;
+    }
+
     /** @return representación textual de la necesidad */
     @Override
     public String toString() {
         return "Necesidad de Movilidad:\nSolicitante: " + solicitante + "\nCarrera: " + carrera + "\nMotivo: " + motivo
                 + "\nLugar de Salida: " + lugarSalida + "\nLugar de Destino: " + lugarDestino + "\nPasajeros: " + pasajeros
                 + "\nFecha de Salida: " + fechaSalida + "\nFecha de Regreso: " + fechaRegreso + "\nHora de Salida: " + horaSalida
-                + "\nHora de Regreso: " + horaRegreso + "\nTipo de viaje: " + tipo + "\nObservaciones: " + observaciones+ "\n";
+                + "\nHora de Regreso: " + horaRegreso + "\nTipo de viaje: " + tipo + "\nObservaciones: " + observaciones
+                + "\nEstado: " + (suspendida ? "Suspendida" : "Activa") + "\n";
     }
 
     
