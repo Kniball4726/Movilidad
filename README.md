@@ -15,8 +15,8 @@ El sistema ofrece un flujo de consola para autenticar usuarios, registrar necesi
 ## Funcionalidades principales
 
 - Inicio de sesión con usuarios de ejemplo `Admin` y `User`.
-- Alta, listado, búsqueda, modificación, suspensión y eliminación de necesidades de movilidad.
-- Alta, listado, búsqueda, modificación y eliminación de vehículos.
+- Alta, listado, búsqueda por número, modificación, suspensión y eliminación de necesidades de movilidad. Cada necesidad recibe un número correlativo automático.
+- Alta, listado, búsqueda, modificación de datos (incluida la patente) y eliminación de vehículos.
 - Alta, listado, búsqueda, modificación y eliminación de conductores.
 - Alta, listado, búsqueda, modificación y eliminación de usuarios.
 - Creación, listado, búsqueda, modificación, suspensión y eliminación de reservas.
@@ -54,6 +54,12 @@ Movilidad/
 │   │   ├── Usuario.java
 │   │   └── Vehiculo.java
 │   └── principal/
+│       ├── MenuConductores.java
+│       ├── MenuNecesidades.java
+│       ├── MenuPrincipal.java
+│       ├── MenuReservas.java
+│       ├── MenuUsuarios.java
+│       ├── MenuVehiculos.java
 │       └── Movilidad.java
 ├── build.xml
 ├── manifest.mf
@@ -115,6 +121,8 @@ Una vez iniciada la aplicación, el usuario accede a los menús de:
 - Vehículos
 - Usuarios
 
+Cada necesidad de movilidad muestra un número correlativo asignado automáticamente. Utiliza ese número para buscarla o seleccionarla al modificarla, suspenderla o eliminarla. Al modificar un vehículo, primero se identifica con su patente actual y luego se puede ingresar la nueva patente. La opción `0` de cada submenú regresa al menú anterior.
+
 El flujo para crear una reserva es:
 
 1. Registrar una necesidad de movilidad. Las fechas se ingresan como `AAAA-MM-DD` y las horas como `HH:MM`.
@@ -125,7 +133,7 @@ Si falta cualquiera de los tres registros, la reserva no se crea. El vehículo d
 
 Las entradas inválidas muestran un mensaje y solicitan nuevamente el dato correspondiente. Las opciones `0` permiten volver al menú anterior.
 
-Los datos se pierden al cerrar el programa; la aplicación no utiliza persistencia en archivos ni base de datos.
+Los datos se pierden al cerrar el programa; la aplicación no utiliza persistencia en archivos ni base de datos. Por ello, los números de las necesidades también se reinician al iniciar una nueva ejecución.
 
 ## Estado del proyecto
 

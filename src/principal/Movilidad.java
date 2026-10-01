@@ -4,12 +4,12 @@
  */
 package principal;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import logica.Conductor;
 import logica.NeMovilidad;
 import logica.Reserva;
@@ -51,6 +51,7 @@ public class Movilidad {
                 boolean autenticado = usuarios.stream()
                     .anyMatch(candidato -> candidato.getUsuario().equals(usuario)
                     && candidato.getContrasena().equals(clave));
+                    
                 if (autenticado) {
                 new MenuPrincipal().mostrar();
                 break;

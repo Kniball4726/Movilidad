@@ -71,7 +71,7 @@ public class Reserva {
     /** @return representación textual de la reserva */
     @Override
     public String toString() {
-        return "Reserva{" + "estado=" + estado + ", movilidad=" + movilidad + ", vehiculo=" + vehiculo + ", conductor=" + conductor + '}';
+        return "Reserva\nEstado: " + estado + "\nMovilidad: " + movilidad + "\nVehículo: " + vehiculo + "\nConductor: " + conductor + "\n";
     }
     
 }

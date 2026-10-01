@@ -85,7 +85,7 @@ public abstract class Trabajador {
     /** @return representación textual de los datos del trabajador */
     @Override
     public String toString() {
-        return "Trabajador{" + "idPersona=" + idPersona + ", nombre=" + nombre + ", id=" + id + ", cargo=" + cargo + ", dependencia=" + dependencia +'}';
+        return "Trabajador\nId Persona: " + idPersona + "\nNombre: " + nombre + "\nId: " + id + "\nCargo: " + cargo + "\nDependencia: " + dependencia + "\n";
     }
 
     

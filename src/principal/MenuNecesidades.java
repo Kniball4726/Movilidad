@@ -133,10 +133,14 @@ public final class MenuNecesidades {
     }
 
     private static void buscar() {
-        System.out.println("Indique solicitante a buscar:");
-        String solicitante = Movilidad.leerString();
+        if (Movilidad.movilidad.isEmpty()) {
+            System.out.println("No hay necesidades registradas.");
+            return;
+        }
+        System.out.println("Indique el número de necesidad a buscar:");
+        int numero = Movilidad.leerInt();
         for (NeMovilidad necesidad : Movilidad.movilidad) {
-            if (necesidad.getSolicitante().equalsIgnoreCase(solicitante)) {
+            if (necesidad.getNumero() == numero) {
                 System.out.println(necesidad);
                 return;
             }
@@ -168,12 +172,15 @@ public final class MenuNecesidades {
         mostrarNecesidades();
         System.out.println("Seleccione el número de necesidad (0 para cancelar):");
         int seleccion = Movilidad.leerInt();
-        if (seleccion < 1 || seleccion > Movilidad.movilidad.size()) {
-            if (seleccion != 0) {
-                System.out.println("Selección no válida.");
-            }
+        if (seleccion == 0) {
             return null;
         }
-        return Movilidad.movilidad.get(seleccion - 1);
+        for (NeMovilidad necesidad : Movilidad.movilidad) {
+            if (necesidad.getNumero() == seleccion) {
+                return necesidad;
+            }
+        }
+        System.out.println("Selección no válida.");
+        return null;
     }
 }
