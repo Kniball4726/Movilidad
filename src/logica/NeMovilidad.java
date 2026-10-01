@@ -10,6 +10,8 @@ import java.time.LocalTime;
 
 /** Describe una solicitud de traslado y sus condiciones de viaje. */
 public class NeMovilidad {
+    private static int siguienteNumero = 1;
+    private final int numero;
     private String solicitante;
     private String carrera;
     private String motivo;
@@ -26,6 +28,7 @@ public class NeMovilidad {
 
     /** Crea una necesidad sin datos iniciales. */
     public NeMovilidad() {
+        this.numero = siguienteNumero++;
     }
 
     /**
@@ -46,6 +49,7 @@ public class NeMovilidad {
     public NeMovilidad(String solicitante, String carrera, String motivo, String lugarSalida, String lugarDestino,
             int pasajeros, LocalDate fechaSalida, LocalDate fechaRegreso, LocalTime horaSalida, LocalTime horaRegreso,
             TipoMovilidad tipo, String observaciones) {
+        this.numero = siguienteNumero++;
         this.solicitante = solicitante;
         this.carrera = carrera;
         this.motivo = motivo;
@@ -58,6 +62,11 @@ public class NeMovilidad {
         this.horaRegreso = horaRegreso;
         this.tipo = tipo;
         this.observaciones = observaciones;
+    }
+
+    /** @return número único de la necesidad */
+    public int getNumero() {
+        return numero;
     }
 
     /** @return solicitante del traslado */
@@ -191,7 +200,7 @@ public class NeMovilidad {
     /** @return representación textual de la necesidad */
     @Override
     public String toString() {
-        return "Necesidad de Movilidad:\nSolicitante: " + solicitante + "\nCarrera: " + carrera + "\nMotivo: " + motivo
+        return "Necesidad de Movilidad #" + numero + ":\nSolicitante: " + solicitante + "\nCarrera: " + carrera + "\nMotivo: " + motivo
                 + "\nLugar de Salida: " + lugarSalida + "\nLugar de Destino: " + lugarDestino + "\nPasajeros: " + pasajeros
                 + "\nFecha de Salida: " + fechaSalida + "\nFecha de Regreso: " + fechaRegreso + "\nHora de Salida: " + horaSalida
                 + "\nHora de Regreso: " + horaRegreso + "\nTipo de viaje: " + tipo + "\nObservaciones: " + observaciones

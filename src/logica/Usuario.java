@@ -143,9 +143,7 @@ public class Usuario extends Trabajador{
     
     @Override
     public String toString() {
-        return """
-               Usuario
-               idUsuario: """ + idUsuario + "\nusuario: " + usuario + "\ncontrasena: " + contrasena + "\nrol: " + rol;
+        return "Usuario\nId Usuario: " + idUsuario + "\nUsuario: " + usuario + "\nContraseña: " + contrasena + "\nRol: " + rol+"\n";
     }
 
     

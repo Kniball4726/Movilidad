@@ -54,14 +54,13 @@ private static void verVehiculo (){
     System.out.println("=======================");
                 
         if (Movilidad.vehiculo.isEmpty()) {
-        System.out.println("No hay vehículos registrados.");
-            return;
-    }else{
+         System.out.println("No hay vehículos registrados.");
+        }else{
         for(Vehiculo vehiculo : Movilidad.vehiculo){
             System.out.println(vehiculo);
-        };
+        }
     
-}
+    }
 }
 
 private static void buscarVehiculo() {
@@ -103,6 +102,9 @@ private static void modificarVehiculo() {
                 
             System.out.println("Ingrese nuevo modelo:");
             vehiculo.setModelo(Movilidad.leerString());
+
+            System.out.println("Ingrese nueva patente:");
+            vehiculo.setPatente(Movilidad.leerString());
                 
             System.out.println("Ingrese nuevo tipo:");
             vehiculo.setTipo(Movilidad.leerString());

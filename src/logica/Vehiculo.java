@@ -100,7 +100,7 @@ public class Vehiculo {
     /** @return representación textual del vehículo */
     @Override
     public String toString() {
-        return "Vehiculo:\n\nMarca: " + marca + "\nModelo: " + modelo + "\nPatente: " + patente + "\nTipo: " + tipo + "\nEstado: " + estado + "\nCapacidad: " + capacidad + "\n";
+        return "Vehiculo\nMarca: " + marca + "\nModelo: " + modelo + "\nPatente: " + patente + "\nTipo: " + tipo + "\nEstado: " + estado + "\nCapacidad: " + capacidad + "\n";
     }
 
     
